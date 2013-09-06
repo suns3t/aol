@@ -1,4 +1,5 @@
 import os
+from fnmatch import fnmatch
 
 # Django settings for aol project.
 here = lambda *path: os.path.join(os.path.normpath(os.path.dirname(__file__)), *path)
@@ -7,6 +8,18 @@ root = lambda *path: here("../../", *path)
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = ['.pdx.edu']
+
+# allow the use of wildcards in the INTERAL_IPS setting
+class IPList(list):
+    # do a unix-like glob match
+    # E.g. '192.168.1.100' would match '192.*'
+    def __contains__(self, ip):
+        for ip_pattern in self:
+            if fnmatch(ip, ip_pattern):
+                return True
+        return False
+
+INTERNAL_IPS = IPList(['10.*', '192.168.*'])
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
