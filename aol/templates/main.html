@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block body %}
+    {% block header %}
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'lakes-listing' %}">Lakes</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'credits' %}">Credits</a></li>
+        </ul>
+    {% endblock %} 
+
+    {% block content %}{% endblock %}
+
+
+    {% block footer %}
+        {% if sql_queries %} 
+            {% comment %}Print out all the SQL queries (only in debug mode){% endcomment %}
+            <hr />
+            {% for item in sql_queries %}
+                {{ item.sql }}
+            {% endfor %}
+        {% endif %}
+    {% endblock %}
+{% endblock %}

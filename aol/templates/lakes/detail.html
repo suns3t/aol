@@ -1,0 +1,7 @@
+{% extends "main.html" %}
+{% block content %}
+<h1>{{ lake.title }} <em>({{ lake.counties }})</em></h1>
+<div class="lake-body">
+    {{ lake.body|safe }}
+</div>
+{% endblock %}

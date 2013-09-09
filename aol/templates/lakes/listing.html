@@ -1,0 +1,8 @@
+{% extends "main.html" %}
+{% block content %}
+<ol>
+    {% for lake in lakes %}
+        <li><a href="{% url 'lakes-detail' reachcode=lake.reachcode %}">{{ lake.title }}</a> (<em>{{ lake.counties }}</em>)</li>
+    {% endfor %}
+</ol>
+{% endblock %}
