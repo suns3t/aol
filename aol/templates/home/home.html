@@ -1,5 +1,8 @@
 <ol>
     {% for lake in lakes %}
-        <li>{{ lake.title }}</li>
+        <li>{{ lake.title }} (<em>{{ lake.counties }}</em>)</li>
     {% endfor %}
 </ol>
+{% for item in sql_queries %}
+    {{ item.sql }}
+{% endfor %}
