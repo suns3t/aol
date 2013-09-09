@@ -11,6 +11,9 @@ ALLOWED_HOSTS = ['.pdx.edu']
 
 POSTGIS_TEMPLATE = 'postgis_template'
 
+# with a trailing slash
+TILE_URL = "http://pan.rc.pdx.edu/arcgis/rest/services/aol/nlcd/MapServer/"
+
 # allow the use of wildcards in the INTERAL_IPS setting
 class IPList(list):
     # do a unix-like glob match

@@ -4,4 +4,12 @@
 <div class="lake-body">
     {{ lake.body|safe }}
 </div>
+
+{% if lake.watershed_tile_url %}
+    <h2>Watershed</h2>
+    <img src="{{ lake.watershed_tile_url }}" />
+{% endif %}
+
+<h2>Basin</h2>
+<img src="{{ lake.basin_tile_url }}" />
 {% endblock %}

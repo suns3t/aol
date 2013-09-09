@@ -1,3 +1,5 @@
+import re
+from django.conf import settings as SETTINGS
 from django.contrib.gis.db import models
 
 class LakeManager(models.Manager):
@@ -50,6 +52,61 @@ class Lake(models.Model):
 
     class Meta:
         db_table = 'lake'
+
+    @property
+    def watershed_tile_url(self):
+        """
+        Returns the URL to the watershed tile thumbnail from the arcgis
+        server for this lake
+        """
+        # get the bounding box of the huc6 geom for the lake. The magic 300
+        # here is from the original AOL
+        results = HUC6.objects.raw("""
+        SELECT st_box2d(st_envelope(st_expand(the_geom, 300))) AS bbox, huc6.huc6_id
+        FROM huc6 WHERE huc6.huc6_id = %s
+        """, (self.huc6_id,))
+
+        try:
+            bbox = list(results)[0].bbox
+        except IndexError:
+            # this lake does not have a watershed
+            return None 
+
+        return self._bbox_thumbnail_url(bbox)
+
+    @property
+    def basin_tile_url(self):
+        """
+        Return the URL to the lakebasin tile thumbnail from the arcgis server
+        """
+        # the magic 1000 here is from the original AOL too 
+        results = Lake.objects.raw("""
+        SELECT st_box2d(st_envelope(st_expand(the_geom,1000))) as bbox, lake_id
+        FROM lake_geom where lake_id = %s
+        """, (self.lake_id,))
+
+        bbox = results[0].bbox
+        return self._bbox_thumbnail_url(bbox)
+
+    def _bbox_thumbnail_url(self, bbox):
+        """
+        Take a boundingbox string from postgis, for example:
+        BOX(727773.25 1372170,829042.75 1430280.75)
+        and build the URL to a tile of that bounding box in the arcgis server
+        """
+        # extract out the numbers from the bbox, and comma separate them
+        bbox = re.sub(r'[^0-9.-]', " ", bbox).split()
+        bbox = ",".join(bbox)
+        path = "export?bbox=%s&bboxSR=&layers=&layerdefs=&size=&imageSR=&format=jpg&transparent=false&dpi=&time=&layerTimeOptions=&f=image"
+        return SETTINGS.TILE_URL + (path % bbox)
+
+
+class LakeGeom(models.Model):
+    lake = models.ForeignKey('Lake', primary_key=True)
+    the_geom = models.MultiPolygonField(srid=3644)
+
+    class Meta:
+        db_table = "lake_geom"
 
 
 class FishingZone(models.Model):

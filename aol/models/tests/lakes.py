@@ -15,3 +15,13 @@ class LakeTest(TestCase):
         with self.assertNumQueries(0):
             # the ordering matters here. It's alphabetical
             self.assertTrue(lake.counties, "Clark, Washington")
+
+    def test_watershed_tile_url(self):
+        lake = Lake.objects.get(title="Matt Lake")
+        url = lake.watershed_tile_url
+        self.assertTrue("?bbox=-295,-295,345,340" in url)
+
+    def test_basin_tile_url(self):
+        lake = Lake.objects.get(title="Matt Lake")
+        url = lake.basin_tile_url
+        self.assertTrue("?bbox=-995,-995,1045,1040" in url)
