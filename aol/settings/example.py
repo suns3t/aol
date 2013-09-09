@@ -20,6 +20,11 @@ DATABASES = {
     }
 }
 
+# specify the test user for the db
+if 'test' in sys.argv:
+    DATABASES['default']['USER'] = 'super'
+    DATABASES['default']['PASSWORD'] = 'user'
+
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = ''
 

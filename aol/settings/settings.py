@@ -9,6 +9,8 @@ root = lambda *path: here("../../", *path)
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = ['.pdx.edu']
 
+POSTGIS_TEMPLATE = 'postgis_template'
+
 # allow the use of wildcards in the INTERAL_IPS setting
 class IPList(list):
     # do a unix-like glob match
