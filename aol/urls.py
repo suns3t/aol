@@ -1,4 +1,6 @@
 from django.conf.urls import patterns, include, url
+from django.conf.urls.static import static
+from django.conf import settings as SETTINGS
 from .views import home
 from .views import lakes
 
@@ -22,4 +24,4 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
-)
+) + static(SETTINGS.MEDIA_URL, document_root=SETTINGS.MEDIA_ROOT)

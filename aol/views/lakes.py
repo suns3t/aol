@@ -1,6 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-from aol.models import Lake
+from aol.models import Lake, Photo
 
 def listing(request):
     """Display a list of all the lakes in the Atlas, with pagination"""
@@ -12,7 +12,9 @@ def listing(request):
 def detail(request, reachcode):
     """Display the detail view for an individual lake"""
     lake = get_object_or_404(Lake, reachcode=reachcode)
+    photos = Photo.objects.filter(lake=lake)
     return render(request, "lakes/detail.html", {
         "lake": lake,
+        "photos": photos,
     })
 

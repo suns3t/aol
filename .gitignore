@@ -3,3 +3,4 @@
 *.pyc
 aol/settings/local.py
 .env
+media/*

@@ -1,4 +1,6 @@
+import os
 import re
+from PIL import Image
 from django.conf import settings as SETTINGS
 from django.contrib.gis.db import models
 
@@ -107,6 +109,55 @@ class LakeGeom(models.Model):
 
     class Meta:
         db_table = "lake_geom"
+
+
+class Photo(models.Model):
+    PHOTO_DIR = "photos/"
+    THUMBNAIL_PREFIX = "thumbnail-"
+
+    photo_id = models.AutoField(primary_key=True)
+    filename = models.CharField(max_length=255)
+    taken_on = models.DateField(null=True, db_column="photo_date")
+    author = models.CharField(max_length=255)
+    caption = models.CharField(max_length=255)
+
+    lake = models.ForeignKey('Lake')
+
+    class Meta:
+        db_table = "photo"
+
+    @property
+    def url(self):
+        """Returns the complete path to the photo from MEDIA_URL"""
+        return SETTINGS.MEDIA_URL + os.path.relpath(self._path, SETTINGS.MEDIA_ROOT)
+
+    @property
+    def thumbnail_url(self):
+        """Returns the complete path to the photo's thumbnail from MEDIA_URL"""
+        return SETTINGS.MEDIA_URL + os.path.relpath(self._thumbnail_path, SETTINGS.MEDIA_ROOT)
+
+    @property
+    def _path(self):
+        """Returns the abspath of the photo file"""
+        return os.path.join(SETTINGS.MEDIA_ROOT, self.PHOTO_DIR, self.filename)
+
+    @property
+    def _thumbnail_path(self):
+        """Returns the abspath to the thumbnail file, and generates it if needed"""
+        path = os.path.join(SETTINGS.MEDIA_ROOT, self.PHOTO_DIR, self.THUMBNAIL_PREFIX + self.filename)
+        try:
+            open(path).close()
+        except IOError:
+            self._generate_thumbnail(path)
+
+        return path
+
+    def _generate_thumbnail(self, save_to_location):
+        """Generates a thumbnail and saves to to the save_to_location"""
+        SIZE = (256, 256)
+        im = Image.open(self._path)
+        im.thumbnail(SIZE, Image.ANTIALIAS)
+        im.save(save_to_location)
 
 
 class FishingZone(models.Model):

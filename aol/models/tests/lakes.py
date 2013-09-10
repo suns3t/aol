@@ -1,6 +1,7 @@
+import os
 from django.test import TestCase
 from django.contrib.gis.geos import GEOSGeometry
-from ..models import Lake, FishingZone, County, HUC6, LakeCounty
+from ..models import Lake, FishingZone, County, HUC6, LakeCounty, Photo
 
 class LakeTest(TestCase):
     fixtures = ['lakes.json']
@@ -25,3 +26,14 @@ class LakeTest(TestCase):
         lake = Lake.objects.get(title="Matt Lake")
         url = lake.basin_tile_url
         self.assertTrue("?bbox=-995,-995,1045,1040" in url)
+
+    def test_url(self):
+        photo = next(iter(Photo.objects.all()))
+        self.assertEqual(photo.url, "/media/photos/test.jpg")
+
+    def test_thumbnail_url(self):
+        photo = next(iter(Photo.objects.all()))
+        self.assertEqual(photo.thumbnail_url, "/media/photos/thumbnail-test.jpg")
+        # this method should have the side effect of generating a thumbnail, so delete it
+        os.remove(photo._thumbnail_path)
+
