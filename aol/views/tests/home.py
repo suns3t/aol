@@ -14,3 +14,7 @@ class HomeTest(TestCase):
     def test_credits(self):
         response = self.client.get(reverse('credits'))
         self.assertEqual(response.status_code, 200)
+
+    def test_map(self):
+        response = self.client.get(reverse('map'))
+        self.assertEqual(response.status_code, 200)
