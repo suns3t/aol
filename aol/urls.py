@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 from .views import home
 from .views import lakes
+from .views import maps
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -12,6 +13,7 @@ urlpatterns = patterns('',
     url(r'^credits/?$', home.credits, name='credits'),
     url(r'^lakes/?$', lakes.listing, name='lakes-listing'),
     url(r'^lakes/(?P<reachcode>\d+)?$', lakes.detail, name='lakes-detail'),
+    url(r'^map/?$', maps.home, name='map'),
 
     # Examples:
     # url(r'^$', 'aol.views.home', name='home'),
