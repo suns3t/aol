@@ -1,3 +1,64 @@
+/* layout classes */
+
+.span12 { width: 100%;}
+.span10 { width: 80%;}
+.span9 { width: 75%; }
+.span8 { width: 66.666% }
+.span6 { width: 50%; }
+.span4 { width: 33.333%;}
+.span3 { width: 25%; }
+.span2 { width: 16.666%; }
+.span1 { width: 8.333%;} 
+
+.block {display:inline-block;}
+
+.left {float:left;}
+
+/*site styles  */
+h1 { margin: 2px;}
+
 body {
+	margin: 0px;
     background-color:#f8f8f8;
 }
+
+/* header and nav styles */
+#header-wrap{
+	background-color: #06186A;
+	}
+
+#header{
+	color: white;
+	padding: 10px;
+	margin-left: 16.666%;
+}
+
+#branding {min-width: 480px;}
+
+#site-title a {
+	color: white;
+	font-size: 45px;
+	text-decoration: none;
+}
+
+ ul.nav{
+ margin: 0px;
+ }
+
+ ul.nav li {
+	display: inline;
+	padding-right: 10px;
+	padding-left: 5px;
+	border-right: solid white 1px;
+}
+
+ul.nav li:last-child{
+	border: none;
+	}
+ul.nav li a {
+	color:white;
+	text-decoration: none;
+}
+
+
+
