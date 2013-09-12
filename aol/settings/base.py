@@ -157,4 +157,3 @@ LOGGING = {
     }
 }
 
-from local import *
