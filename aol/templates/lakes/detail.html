@@ -1,27 +1,28 @@
 {% extends "main.html" %}
 {% block content %}
-<h1>{{ lake.title }} <em>({{ lake.counties }})</em></h1>
-<div class="lake-body">
-    {{ lake.body|safe }}
+<div class='wrap'>
+	<h1>{{ lake.title }} <em>({{ lake.counties }})</em></h1>
+	<div class="lake-body">
+		{{ lake.body|safe }}
+	</div>
+
+	{% if lake.watershed_tile_url %}
+		<h2>Watershed</h2>
+		<img src="{{ lake.watershed_tile_url }}" />
+	{% endif %}
+
+	<h2>Basin</h2>
+	<img src="{{ lake.basin_tile_url }}" />
+
+	{% if photos %}
+	<div class="lake-photos">
+		{% for photo in photos %}
+			<div class="lake-photo">
+				{{ photo.url }}
+				<img src="{{ photo.thumbnail_url }}" />
+			</div>
+		{% endfor %}
+	</div>
+	{% endif %}
 </div>
-
-{% if lake.watershed_tile_url %}
-    <h2>Watershed</h2>
-    <img src="{{ lake.watershed_tile_url }}" />
-{% endif %}
-
-<h2>Basin</h2>
-<img src="{{ lake.basin_tile_url }}" />
-
-{% if photos %}
-<div class="lake-photos">
-    {% for photo in photos %}
-        <div class="lake-photo">
-            {{ photo.url }}
-            <img src="{{ photo.thumbnail_url }}" />
-        </div>
-    {% endfor %}
-</div>
-{% endif %}
-
 {% endblock %}
