@@ -1,51 +1,74 @@
 /* layout classes */
-
-.span12 { width: 100%;}
-.span10 { width: 80%;}
-.span9 { width: 75%; }
-.span8 { width: 66.666% }
-.span6 { width: 50%; }
-.span4 { width: 33.333%;}
-.span3 { width: 25%; }
-.span2 { width: 16.666%; }
-.span1 { width: 8.333%;} 
+/* 12 column fluid grid with 2% margin */
+.span12 { width: 98%;}
+.span11 {width: 89.833%;}
+.span10 { width: 81.666%;}
+.span9 { width: 73.5%; }
+.span8 { width: 65.333%; }
+.span7 { width: 57.166%;}
+.span6 { width: 49%; }
+.span4 { width: 32.666%;}
+.span3 { width: 24.5%; }
+.span2 { width: 16.333%; }
+.span1 { width: 8.166%;} 
 
 .block {display:inline-block;}
 
 .left {float:left;}
 
+.right {float:right;}
+
+.max {
+	max-width: 64em; /*this is max-width of content = 1024/16px*/
+	margin:auto;
+	}
+
+
 /*site styles  */
+/* reset all paddings and margins for fair-play between browsers*/
+*
+{
+margin: 0px;
+padding: 0px;
+}
+
+input {
+	font-size: 16px;
+	}
+
+div.block-wrap {
+	padding:20px;
+	}
+
 h1 { margin: 2px;}
 
 body {
-	margin: 0px;
     background-color:#f8f8f8;
-}
+	font-size: 16px;
+	}
 
 /* header and nav styles */
 #header-wrap{
 	background-color: #06186A;
-	}
-
-#header{
-	color: white;
-	padding: 10px;
-	margin-left: 16.666%;
 }
 
-#branding {min-width: 480px;}
+div#branding {min-width: 440px;}
 
+#logo { 
+	padding: 10px; }
+
+#site-title { padding-top: 10px;}
 #site-title a {
 	color: white;
 	font-size: 45px;
 	text-decoration: none;
 }
 
- ul.nav{
+ul.nav{
  margin: 0px;
  }
 
- ul.nav li {
+ul.nav li {
 	display: inline;
 	padding-right: 10px;
 	padding-left: 5px;
@@ -60,5 +83,25 @@ ul.nav li a {
 	text-decoration: none;
 }
 
+#search-container { 
+	padding-top: 20px;
+}
 
+#content{
+	margin-top: 40px;
+	border: 1px solid grey;
+	border-radius: 4px;
+	background: white;
+	}
 
+/*home page styles*/
+#home-row1{
+	border-bottom: solid 1px grey;
+	}
+
+#home-row2 {
+	margin-top: -4px; /* get rid of white space */
+	}
+
+#r1c1 { border-right: solid 1px grey;}
+#r2c2 { border-left: solid 1px grey; }

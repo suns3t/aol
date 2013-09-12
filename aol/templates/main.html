@@ -2,9 +2,9 @@
 {% block body %}
 
     {% block header %}{% include "header.html"%}{% endblock %} 
-
+	<div id='content' class='max'>
     {% block content %}{% endblock %}
-
+	</div>
     {% block footer %}
         {% if sql_queries %} 
             {% comment %}Print out all the SQL queries (only in debug mode){% endcomment %}
