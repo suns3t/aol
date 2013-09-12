@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<kml xmlns='http://www.opengis.net/kml/2.2'>
+    <Document id='lakes'>
+        <name>lakes</name>
+        <Style id="lake">
+            <LineStyle>
+                <color>ffffffff</color>
+                <width>10</width>
+            </LineStyle>
+            <PolyStyle>
+                <color>00ffffff</color>
+            </PolyStyle>
+        </Style>
+        <Snippet></Snippet>
+        <Folder id='FeatureLayer0'>
+            <name>lakes</name>
+            {% for lake in lakes %}
+                <Placemark>
+                    <id></id>
+                    <name>{{ lake.title }}</name>
+                    <description><![CDATA[ <strong>Foo</strong> <em>bar</em> ]]></description>
+                    <styleUrl>#lake</styleUrl>
+                    {{ lake.kml|safe }}
+                </Placemark>
+            {% endfor %}
+        </Folder>
+    </Document>
+</kml>

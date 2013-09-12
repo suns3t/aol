@@ -16,9 +16,9 @@ urlpatterns = patterns('',
     url(r'^lakes/?$', lakes.listing, name='lakes-listing'),
     url(r'^lakes/(?P<reachcode>\d+)?$', lakes.detail, name='lakes-detail'),
     url(r'^map/?$', maps.home, name='map'),
+    url(r'^map/lakes\.kml$', maps.lakes, name='lakes-kml'),
 	url(r'^search/?$', lakes.search, name='lakes-search'),
     url(r'^photo-submissions/?$', home.photo_submissions, name='photo-submissions'),
-    
     
     # Examples:
     # url(r'^$', 'aol.views.home', name='home'),
