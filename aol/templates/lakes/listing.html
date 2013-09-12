@@ -1,8 +1,11 @@
 {% extends "main.html" %}
 {% block content %}
-<ol>
-    {% for lake in lakes %}
-        <li><a href="{% url 'lakes-detail' reachcode=lake.reachcode %}">{{ lake.title }}</a> (<em>{{ lake.counties }}</em>)</li>
-    {% endfor %}
-</ol>
+<div class= 'wrap' >
+	<h2>Individual Lake Pages</h2>
+	<ol class='wrap'>
+		{% for lake in lakes %}
+			<li class="{% cycle 'odd' 'even' %}" ><a href="{% url 'lakes-detail' reachcode=lake.reachcode %}">{{ lake.title }}</a> (<em>{{ lake.counties }}</em>)</li>
+		{% endfor %}
+	</ol>
+</div>
 {% endblock %}
