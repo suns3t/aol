@@ -1,3 +1,23 @@
+/** set max-width **/
+@media only screen 
+and (min-width : 1224px) {
+
+.max {
+	max-width: 80em; /*this is max-width of content/main font = 1280/16px*/
+	margin:auto;
+	}
+
+}
+
+@media only screen 
+and (max-device-width : 1024px) 
+{
+.max {/* Styles */
+	max-width: 60em; /* 980/16 */
+	margin: auto;
+}
+}
+
 /* layout classes */
 /* 12 column fluid grid with 2% margin */
 .span12 { width: 98%;}
@@ -7,6 +27,7 @@
 .span8 { width: 65.333%; }
 .span7 { width: 57.166%;}
 .span6 { width: 49%; }
+.span5 { width: 40.833%;}
 .span4 { width: 32.666%;}
 .span3 { width: 24.5%; }
 .span2 { width: 16.333%; }
@@ -18,11 +39,8 @@
 
 .right {float:right;}
 
-.max {
-	max-width: 64em; /*this is max-width of content = 1024/16px*/
-	margin:auto;
-	}
 
+.clear { clear: both; }
 
 /*site styles  */
 /* reset all paddings and margins for fair-play between browsers*/
@@ -103,5 +121,11 @@ ul.nav li a {
 	margin-top: -4px; /* get rid of white space */
 	}
 
+#home-row2 img {
+	float: left;
+	width: 110px;
+	height: 120px;
+	}
+	
 #r1c1 { border-right: solid 1px grey;}
-#r2c2 { border-left: solid 1px grey; }
+#r2c2 { border-left: solid 1px grey;}
