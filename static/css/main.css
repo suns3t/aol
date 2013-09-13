@@ -145,3 +145,7 @@ li.odd {
 	
 #r1c1 { border-right: solid 1px grey;}
 #r2c2 { border-left: solid 1px grey;}
+
+#r2c2 img { border: solid 2px grey; 
+			margin-bottom: 5px;
+			}
