@@ -16,7 +16,37 @@ and (max-device-width : 1024px)
 	max-width: 60em; /* 980/16 */
 	margin: auto;
 }
+
+}/*site styles  */
+/* reset all paddings and margins for fair-play between browsers*/
+*{
+margin: 0px;
+padding: 0px;
 }
+
+body {
+    background-color:#f8f8f8;
+	font: normal 100% Helvetica, Arial, sans-serif;	
+	font-size: 16px;
+	}
+
+a { 
+	text-decoration: none;
+	color: rgb(8, 103, 130);
+}
+
+a:visited {color: grey; }
+
+a:hover {
+	color: rgb(8, 103, 130);
+	text-decoration: underline;
+}
+
+input { font-size: 16px;}
+
+h1 { margin: 2px;}
+
+
 
 /* layout classes */
 /* 12 column fluid grid with 2% margin */
@@ -39,44 +69,10 @@ and (max-device-width : 1024px)
 
 .right {float:right;}
 
-
 .clear { clear: both; }
 
-/*site styles  */
-/* reset all paddings and margins for fair-play between browsers*/
-*
-{
-margin: 0px;
-padding: 0px;
-}
+.wrap { padding:20px; }
 
-a { 
-	text-decoration: none;
-	color: rgb(8, 103, 130);
-}
-
-a:visited {
-	color: grey;
-}
-
-a:hover {
-	color: rgb(8, 103, 130);
-	text-decoration: underline;
-}
-input {
-	font-size: 16px;
-	}
-
-.wrap {
-	padding:20px;
-	}
-
-h1 { margin: 2px;}
-
-body {
-    background-color:#f8f8f8;
-	font-size: 16px;
-	}
 
 /* header and nav styles */
 #header-wrap{
