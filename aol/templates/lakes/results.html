@@ -1,0 +1,18 @@
+{% extends "main.html" %}
+{% block content %}
+<div class= 'wrap' >
+	<h2>Search Results for: <i>{{ query }}</i></h2>
+    {% if error %}
+        <p style="color: red;">Sorry, no lakes were found.</p>
+    {% endif %}	
+    <form action='/search/' method='get'>
+        <input type='text' name='q' value= {{ query }} autofocus></input>
+        <input type='submit' value='Lake Search'></input>
+    </form>
+    <ol class='wrap'>
+		{% for lake in lakes %}
+			<li class="{% cycle 'odd' 'even' %}" ><a href="{% url 'lakes-detail' reachcode=lake.reachcode %}">{{ lake.title }}</a> (<em>{{ lake.counties }}</em>)</li>
+		{% endfor %}
+	</ol>
+</div>
+{% endblock %}

@@ -13,9 +13,11 @@
 			</div>
 		</div>
 		<div id='search-container' class='span4 block right'>
-			<input type='text'></input>
-			<input type='submit' value='Lake Search'></input>
-		</div>
+			<form action='/search/' method='get'>
+                <input type='text' name='q'></input>
+			    <input type='submit' value='Lake Search'></input>
+		    </form>
+        </div>
 	</div>	
 </div>
 {% endblock %}

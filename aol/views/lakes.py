@@ -1,4 +1,5 @@
 from django.http import HttpResponse, HttpResponseRedirect
+from django.core.urlresolvers import reverse 
 from django.shortcuts import render, get_object_or_404
 from aol.models import Lake, Photo
 
@@ -17,4 +18,20 @@ def detail(request, reachcode):
         "lake": lake,
         "photos": photos,
     })
+
+def search(request):
+    q = request.GET.get('q','')
+    qs = Lake.objects.filter(title__icontains=q)
+    if not qs:
+        return render(request, "lakes/results.html", {
+            'error': True, 'query': q})
+    elif qs.count() == 1:
+        reachcode = qs[0].reachcode
+        return HttpResponseRedirect(reverse('lakes-detail', kwargs={'reachcode':reachcode}))
+  
+
+    return render(request, "lakes/results.html", {
+        'lakes': qs, 
+        'query':q,
+        })
 
