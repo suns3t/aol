@@ -22,3 +22,10 @@ def credits(request):
     return render(request, "home/credits.html", {
 
     })
+
+def photo_submissions(request):
+    """The photo submissions page"""
+    # maybe use flatpages for this instead?
+    return render(request, "home/photo_submissions.html", {
+
+    })
