@@ -47,6 +47,8 @@ class LakeManager(models.Manager):
             geom_col = "the_geom_54k"
         elif scale in [54000, 27000, 13500, 6750]:
             geom_col = "the_geom_27k"
+        else:
+            raise ValueError("scale not valid")
 
         # join with the lake_geom table
         sql = """
