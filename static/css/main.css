@@ -46,7 +46,10 @@ input { font-size: 16px;}
 
 h1 { margin: 2px;}
 
-
+ul { list-style:none;
+    line-height: 24px;
+    }
+    
 
 /* layout classes */
 /* 12 column fluid grid with 2% margin */
