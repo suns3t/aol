@@ -1,8 +1,9 @@
 {% extends "main.html" %}
 {% block content %}
 <!-- TODO: add these to the repo -->
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/openlayers/2.11/OpenLayers.js"></script>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/proj4js/1.1.0/proj4js-compressed.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}/js/OpenLayers/OpenLayers.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}/js/proj4js.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/layers.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/map.js"></script>
 
 <h1>Map</h1>
