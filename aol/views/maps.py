@@ -1,6 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-from aol.models import Lake, LakeGeom
+from aol.models import Lake
 
 def home(request):
     """Displays the interactive map"""
@@ -12,9 +12,9 @@ def home(request):
 def lakes(request):
     """Return the KML for the lakes"""
     scale = int(request.GET['scale'])
-    bbox = request.GET['bbox_limited'].split(",")
+    bbox = map(float, request.GET['bbox_limited'].split(","))
 
-    lakes = LakeGeom.objects.toKML(scale=scale)
+    lakes = Lake.objects.to_kml(scale=scale, bbox=bbox)
     return render(request, "maps/lakes.kml", {
         "lakes": lakes,
     })

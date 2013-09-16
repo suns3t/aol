@@ -33,6 +33,37 @@ class LakeManager(models.Manager):
         )
         return qs
 
+    def to_kml(self, scale, bbox):
+        """
+        Returns a query set of Lake objects with a "kml" attribute, which
+        contains the KML string representing the lake geometry at the specific
+        scale. Only lakes within the bbox (a 4-tuple of floats) are returned
+        """
+        if scale in [1728004, 864002, 432001]:
+            geom_col = "the_geom_217k"
+        elif scale in [216001]:
+            geom_col = "the_geom_108k"
+        elif scale in [108000]:
+            geom_col = "the_geom_54k"
+        elif scale in [54000, 27000, 13500, 6750]:
+            geom_col = "the_geom_27k"
+
+        # join with the lake_geom table
+        sql = """
+            (SELECT st_askml(lake_geom.%s) as kml, lake_geom.the_geom, lake_id
+            FROM lake_geom) AS lake_geom
+        """ % (geom_col)
+
+        return Lake.objects.all().extra(
+            tables=[sql],
+            select={'kml': 'lake_geom.kml'},
+            where=[
+                "lake_geom.the_geom && st_setsrid(st_makebox2d(st_point(%s, %s), st_point(%s, %s)), 3644)",
+                "lake_geom.lake_id = lake.lake_id"
+            ],
+            params=bbox
+        )
+
 
 class Lake(models.Model):
     lake_id = models.AutoField(primary_key=True)
@@ -103,23 +134,6 @@ class Lake(models.Model):
         return SETTINGS.TILE_URL + (path % bbox)
 
 
-class LakeGeomManager(models.Manager):
-    def toKML(self, scale):
-        if scale in [1728004, 864002, 432001]:
-            geom_col = "the_geom_217k"
-        elif scale in [216001]:
-            geom_col = "the_geom_108k"
-        elif scale in [108000]:
-            geom_col = "the_geom_54k"
-        elif scale in [54000, 27000, 13500, 6750]:
-            geom_col = "the_geom_27k"
-
-        return LakeGeom.objects.raw("""
-            SELECT st_askml(lake_geom.%s) as kml, lake.lake_id, lake.title
-            FROM lake_geom INNER JOIN lake USING(lake_id)
-        """ % (geom_col))
-
-
 class LakeGeom(models.Model):
     lake = models.ForeignKey('Lake', primary_key=True)
     the_geom = models.MultiPolygonField(srid=3644)
@@ -128,8 +142,6 @@ class LakeGeom(models.Model):
     the_geom_108k = models.MultiPolygonField(srid=3644)
     the_geom_54k = models.MultiPolygonField(srid=3644)
     the_geom_27k = models.MultiPolygonField(srid=3644)
-
-    objects = LakeGeomManager()
 
     class Meta:
         db_table = "lake_geom"
