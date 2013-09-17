@@ -16,17 +16,21 @@
             </ul>
         <div id='maps' class='aside'>
             {% if lake.watershed_tile_url %}
-                <div class='lake-watershed'>
+                <div id='watershed' class='lake-watershed map'>
                     <h2>Watershed</h2>
                     <img src="{{ lake.watershed_tile_url }}" /> 
                 </div>
             {% endif %}
             {% if lake.basin_tile_url %}
-            <div class='lake-waterbasin'>
+            <div id='basin' class='lake-waterbasin map'>
                 <h2>Basin</h2>
                 <img src="{{ lake.basin_tile_url }}" />
             </div>
             {% endif %}
+            <select id='map-select' >
+                <option value='#watershed'>Watershed</option>
+                <option value='#basin'>Basin</option>
+            </select>
         </div>
         <div class='other-information aside' id='other-information'>
             <p>Other information</p>
@@ -35,23 +39,39 @@
         {% if photos %}
             {% for photo in photos %}
                 <div class="lake-photo">
-                    {{ photo.url }}
-                    <img src="{{ photo.thumbnail_url }}" />
+                    <a href='{{ photo.url }}'>
+                        <img src="{{ photo.thumbnail_url }}" />
+                    </a>
                 </div>
             {% endfor %}
+        {% else %}
+            <p>No photos available.</p>
+            <p>If you would like your photos of Oregon lakes featured in the online atlas, <a href="/photo-submissions">click here</a> for submission criteria.</p>
         </div>
 	    {% endif %}
     </div>
 </div>
+
 <script type='text/javascript'>
     $(document).ready(function(){
+       //TODO: make less hacky 
+        //tabs
         $('a.tabs').click(function(e)
             {
             e.preventDefault();
+            $('li.active').removeClass('active');
+            $(this).parent().addClass('active');
             $('.aside').hide();
             div = $(this).attr('href')
             $(div).show();
             });
+        //map select    
+        $('.map:nth-child(2)').hide();
+        $('#map-select').change(function(){
+            $('.map').hide(); 
+            $(this.value).show();
+            });
+        //slideshow
     });
 </script>
 {% endblock %}

@@ -175,6 +175,7 @@ ul.tabs li.active {
 a.tabs, a.tabs active {
     color:black;
     }
+
 .aside {
     display:none;
 }
@@ -196,6 +197,17 @@ a.tabs, a.tabs active {
 }
 
 .other-information {
-
-.lake-photos{
 }
+
+.lake-photo{
+    display: none;
+    text-align:center;
+    }
+
+.lake-photo:first-child{
+    display:block;
+}
+
+.lake-photo img {
+    width: 400px;
+    }
