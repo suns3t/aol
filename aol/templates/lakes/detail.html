@@ -6,6 +6,20 @@
 		{{ lake.body|safe }}
 	</div>
 
+    {% with urls=lake.page_urls %}
+        {% if urls %}
+            <div class="lake-info">
+                <h2>PDFs</h2>
+                <ul>
+                    {% if urls.page %}<li><a href="{{ urls.page }}">1985 Atlas of Oregon Lakes Page</a></li>{% endif %}
+                    {% if urls.map %}<li><a href="{{ urls.map }}">Printable Lake Map</a></li>{% endif %}
+                    {% if urls.survey %}<li><a href="{{ urls.survey }}">2007 National Lakes Survey Summary Page</a></li>{% endif %}
+                    {% if urls.stats %}<li><a href="{{ urls.stats }}">Basin Statistics</a></li>{% endif %}
+                </ul>
+            </div>
+        {% endif %}
+    {% endwith %}
+
 	{% if lake.watershed_tile_url %}
 		<h2>Watershed</h2>
 		<img src="{{ lake.watershed_tile_url }}" />
@@ -15,14 +29,14 @@
 	<img src="{{ lake.basin_tile_url }}" />
 
 	{% if photos %}
-	<div class="lake-photos">
-		{% for photo in photos %}
-			<div class="lake-photo">
-				{{ photo.url }}
-				<img src="{{ photo.thumbnail_url }}" />
-			</div>
-		{% endfor %}
-	</div>
+        <div class="lake-photos">
+            {% for photo in photos %}
+                <div class="lake-photo">
+                    {{ photo.url }}
+                    <img src="{{ photo.thumbnail_url }}" />
+                </div>
+            {% endfor %}
+        </div>
 	{% endif %}
 </div>
 {% endblock %}
