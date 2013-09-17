@@ -1,28 +1,57 @@
 {% extends "main.html" %}
 {% block content %}
-<div class='wrap'>
-	<h1>{{ lake.title }} <em>({{ lake.counties }})</em></h1>
-	<div class="lake-body">
-		{{ lake.body|safe }}
-	</div>
-
-	{% if lake.watershed_tile_url %}
-		<h2>Watershed</h2>
-		<img src="{{ lake.watershed_tile_url }}" />
-	{% endif %}
-
-	<h2>Basin</h2>
-	<img src="{{ lake.basin_tile_url }}" />
-
-	{% if photos %}
-	<div class="lake-photos">
-		{% for photo in photos %}
-			<div class="lake-photo">
-				{{ photo.url }}
-				<img src="{{ photo.thumbnail_url }}" />
-			</div>
-		{% endfor %}
-	</div>
-	{% endif %}
+<div class='wrap block'>
+	<div class='span8 block'>
+        <h1>{{ lake.title }} <em>({{ lake.counties }})</em></h1>
+        <div class="lake-body">
+		    {{ lake.body|safe }}
+	    </div>
+    </div>
+    <div class='lake-right span4 right'>
+        <div class'tab-wrap'>
+            <ul class='tabs'>
+                <li class='active'><a class='tabs' title='maps' href='#maps'>Maps</a></li>
+                <li><a class='tabs' title='other-information' href='#other-information'>Other Information</a></li>
+                <li><a class='tabs' title='photos' href='#photos'>Photos</a></li>
+            </ul>
+        <div id='maps' class='aside'>
+            {% if lake.watershed_tile_url %}
+                <div class='lake-watershed'>
+                    <h2>Watershed</h2>
+                    <img src="{{ lake.watershed_tile_url }}" /> 
+                </div>
+            {% endif %}
+            {% if lake.basin_tile_url %}
+            <div class='lake-waterbasin'>
+                <h2>Basin</h2>
+                <img src="{{ lake.basin_tile_url }}" />
+            </div>
+            {% endif %}
+        </div>
+        <div class='other-information aside' id='other-information'>
+            <p>Other information</p>
+        </div>
+        <div id='photos' class="aside lake-photos">
+        {% if photos %}
+            {% for photo in photos %}
+                <div class="lake-photo">
+                    {{ photo.url }}
+                    <img src="{{ photo.thumbnail_url }}" />
+                </div>
+            {% endfor %}
+        </div>
+	    {% endif %}
+    </div>
 </div>
+<script type='text/javascript'>
+    $(document).ready(function(){
+        $('a.tabs').click(function(e)
+            {
+            e.preventDefault();
+            $('.aside').hide();
+            div = $(this).attr('href')
+            $(div).show();
+            });
+    });
+</script>
 {% endblock %}

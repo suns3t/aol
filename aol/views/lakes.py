@@ -6,6 +6,7 @@ from aol.models import Lake, Photo
 def listing(request):
     """Display a list of all the lakes in the Atlas, with pagination"""
     lakes = Lake.objects.all()
+    lakes = lakes.order_by('title')
     return render(request, "lakes/listing.html", {
         "lakes": lakes,
     })
