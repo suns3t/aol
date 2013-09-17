@@ -1,3 +1,4 @@
+import sys
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG

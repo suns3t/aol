@@ -12,7 +12,7 @@ On my system, this does the trick:
 
     export PATH=/usr/pgsql-9.2/bin:$PATH
 
-Pillow is required, (docs here)[https://github.com/python-imaging/Pillow]. You
+Pillow is required, [docs here](https://github.com/python-imaging/Pillow). You
 will probably need to install `libjpeg-devel` and `libtiff-devel`
 
 Create a local copy of the example settings, and configure the SECRET_KEY and DB config:
@@ -20,8 +20,7 @@ Create a local copy of the example settings, and configure the SECRET_KEY and DB
     cp aol/settings/example.py aol/settings/local.py
     vi aol/settings/local.py
 
-Copy all the aol photos to the media dir
+Copy all the AOL pdf pages and photos to the media dir
 
-    rsync -v USERNAME@circe.rc.pdx.edu:/vol/www/aol/htdocs/lake_photos/* media/photos
-
-
+    rsync -v USERNAME@circe.rc.pdx.edu:/vol/www/aol/dev/media/pages/* media/pages
+    rsync -v USERNAME@circe.rc.pdx.edu:/vol/www/aol/dev/media/photos/* media/photos
