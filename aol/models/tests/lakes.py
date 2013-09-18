@@ -40,3 +40,31 @@ class LakeTest(TestCase):
             # make sure the lake has a kml attribute set
             self.assertTrue(lake.kml)
 
+    def test_page_urls(self):
+        lake = Lake.objects.get(title="Matt Lake")
+
+        # create the path to the dummy pages
+        map_path = os.path.join(SETTINGS.MEDIA_ROOT, "pages", "1_map.pdf")
+        page_path = os.path.join(SETTINGS.MEDIA_ROOT, "pages", "1_page.pdf")
+        map_url = "/media/pages/1_map.pdf"
+        page_url = "/media/pages/1_page.pdf"
+
+        # first, remove the files if they exist (so we are in a known state for this test)
+        for path in [map_path, page_path]:
+            try:
+                os.remove(path)
+            except OSError:
+                pass
+
+        # `matt lake` doesn't have any pdf pages
+        self.assertFalse(lake.page_urls)
+
+        # now create the pdf pages
+        open(page_path, 'w').close()
+        open(map_path, 'w').close()
+
+        self.assertEqual(lake.page_urls['map'], map_url)
+        self.assertEqual(lake.page_urls['page'], page_url)
+        self.assertFalse('survey' in lake.page_urls)
+        self.assertFalse('stats' in lake.page_urls)
+
