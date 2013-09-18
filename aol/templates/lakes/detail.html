@@ -35,7 +35,7 @@
         <div class='other-information aside' id='other-information'>
             <p>Other information</p>
         </div>
-        <div id='photos' class="aside lake-photos">
+        <div id='photos' class="aside">
         {% if photos %}
             {% for photo in photos %}
                 <div class="lake-photo">
@@ -44,6 +44,9 @@
                     </a>
                 </div>
             {% endfor %}
+            <div id='previous' class='block'><img src='{{ STATIC_URL }}img/prev.png'></div>
+            <div id='next' class='block'><img src='{{ STATIC_URL }}img/next.png'></div>
+            <div id='numphotos' class='block'>0/0</div>
         {% else %}
             <p>No photos available.</p>
             <p>If you would like your photos of Oregon lakes featured in the online atlas, <a href="/photo-submissions">click here</a> for submission criteria.</p>
@@ -62,7 +65,7 @@
             $('li.active').removeClass('active');
             $(this).parent().addClass('active');
             $('.aside').hide();
-            div = $(this).attr('href')
+            var div = $(this).attr('href')
             $(div).show();
             });
         //map select    
@@ -71,7 +74,22 @@
             $('.map').hide(); 
             $(this.value).show();
             });
-        //slideshow
+        //slideshow 
+        var current = 1;
+        var numphotos = $('.lake-photo').length;
+        $('#numphotos').html(current + '/' + numphotos); 
+        $('#next').click(function(){
+            $('.lake-photo:nth-child('+current+'').hide();
+            current +=1; if(current > numphotos) current -= numphotos;
+            $('.lake-photo:nth-child('+current+'').show();
+            $('#numphotos').html(current + '/' + numphotos); 
+            });
+        $('#previous').click(function(){
+            $('.lake-photo:nth-child('+current+'').hide();
+            current -= 1; if(current < 1) current += numphotos;
+            $('.lake-photo:nth-child('+current+'').show();
+            $('#numphotos').html(current + '/' + numphotos); 
+            });
     });
 </script>
 {% endblock %}
