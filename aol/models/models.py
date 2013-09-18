@@ -89,6 +89,32 @@ class Lake(models.Model):
         db_table = 'lake'
 
     @property
+    def page_urls(self):
+        """
+        Returns a dict with possible keys "page", "map", "stats" and "basin",
+        where the values are the URLs to the appropriate PDF page
+        """
+        files = ("map", "page", "survey", "stats")
+        urls = {}
+        for file in files:
+            # construct the path to the file, and see if it exists
+            path = os.path.join(SETTINGS.MEDIA_ROOT, "pages", "%d_%s.pdf" % (self.pk, file))
+            if os.path.exists(path):
+                urls[file] = SETTINGS.MEDIA_URL + os.path.relpath(path, SETTINGS.MEDIA_ROOT)
+
+        return urls
+
+    @property
+    def basin_page_url(self):
+        """
+        Returns the URL to the AOL PDF page for the lake, or None is there is none
+        """
+        path = os.path.join(SETTINGS.MEDIA_ROOT, "pages", "SUP%04d" % self.page_number)
+        if os.path.exists(path):
+            return SETTINGS.MEDIA_URL + os.path.relpath(path, SETTINGS.MEDIA_ROOT)
+        return None
+
+    @property
     def watershed_tile_url(self):
         """
         Returns the URL to the watershed tile thumbnail from the arcgis
@@ -192,7 +218,7 @@ class Photo(models.Model):
 
     def _generate_thumbnail(self, save_to_location):
         """Generates a thumbnail and saves to to the save_to_location"""
-        SIZE = (256, 256)
+        SIZE = (400, 300)
         im = Image.open(self._path)
         im.thumbnail(SIZE, Image.ANTIALIAS)
         im.save(save_to_location)
