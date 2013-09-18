@@ -37,6 +37,7 @@
         </div>
         <div id='photos' class="aside">
         {% if photos %}
+            <div id='photo-wrap'>
             {% for photo in photos %}
                 <div class="lake-photo">
                     <a href='{{ photo.url }}'>
@@ -44,6 +45,7 @@
                     </a>
                 </div>
             {% endfor %}
+            </div>
             <div id='previous' class='block'><img src='{{ STATIC_URL }}img/prev.png'></div>
             <div id='next' class='block'><img src='{{ STATIC_URL }}img/next.png'></div>
             <div id='numphotos' class='block'>0/0</div>
