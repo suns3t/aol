@@ -192,7 +192,7 @@ class Photo(models.Model):
 
     def _generate_thumbnail(self, save_to_location):
         """Generates a thumbnail and saves to to the save_to_location"""
-        SIZE = (256, 256)
+        SIZE = (400, 300)
         im = Image.open(self._path)
         im.thumbnail(SIZE, Image.ANTIALIAS)
         im.save(save_to_location)
