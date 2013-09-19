@@ -1,0 +1,17 @@
+{% extends "main.html" %}
+{% block content %}
+<aside>
+    <h4>Assets</h4>
+    <ul>
+        <li><a href="">Documents</a></li>
+        <li><a href="">Photos</a></li>
+    </ul>
+</aside>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" name="submit" value="submit" />
+</form>
+
+{% endblock %}

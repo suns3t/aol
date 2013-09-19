@@ -4,6 +4,7 @@ from django.conf import settings as SETTINGS
 from .views import home
 from .views import lakes
 from .views import maps
+from .views import admin as customadmin
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -19,6 +20,10 @@ urlpatterns = patterns('',
     url(r'^map/lakes\.kml$', maps.lakes, name='lakes-kml'),
 	url(r'^search/?$', lakes.search, name='lakes-search'),
     url(r'^photo-submissions/?$', home.photo_submissions, name='photo-submissions'),
+
+    # admin area
+    url(r'^admin/?$', customadmin.listing, name='admin-listing'),
+    url(r'^admin/edit/lake/(?P<lake_id>\d+)?$', customadmin.edit_lake, name='admin-edit-lake'),
     
     # Examples:
     # url(r'^$', 'aol.views.home', name='home'),

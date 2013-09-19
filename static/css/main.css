@@ -234,3 +234,24 @@ a.tabs, a.tabs active {
     float: right;
     padding: 15px;
 }
+
+
+/* forms control */
+label {
+    display:block;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+input, select, textarea {
+    display:block;
+}
+
+textarea {
+    width:800px;
+    height:500px;
+}
+
+aside {
+    float:right;
+}

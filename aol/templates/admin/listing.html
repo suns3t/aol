@@ -1,0 +1,11 @@
+{% extends "main.html" %}
+{% block content %}
+<div class= 'wrap' >
+	<h2>Individual Lake Pages</h2>
+	<ul class='wrap'>
+		{% for lake in lakes %}
+			<li class="{% cycle 'odd' 'even' %}" ><a href="{% url 'admin-edit-lake' lake_id=lake.pk %}">{{ lake.title }}</a> (<em>{{ lake.counties }}</em>)</li>
+		{% endfor %}
+	</ul>
+</div>
+{% endblock %}
