@@ -27,7 +27,7 @@ class Photo(models.Model):
     THUMBNAIL_PREFIX = "thumbnail-"
 
     photo_id = models.AutoField(primary_key=True)
-    filename = models.CharField(max_length=255)
+    file = models.FileField(upload_to=lambda instance, filename: instance.PHOTO_DIR + filename, db_column="filename")
     taken_on = models.DateField(null=True, db_column="photo_date")
     author = models.CharField(max_length=255)
     caption = models.CharField(max_length=255)
@@ -40,7 +40,7 @@ class Photo(models.Model):
     @property
     def url(self):
         """Returns the complete path to the photo from MEDIA_URL"""
-        return SETTINGS.MEDIA_URL + os.path.relpath(self._path, SETTINGS.MEDIA_ROOT)
+        return self.file.url
 
     @property
     def thumbnail_url(self):
@@ -48,14 +48,10 @@ class Photo(models.Model):
         return SETTINGS.MEDIA_URL + os.path.relpath(self._thumbnail_path, SETTINGS.MEDIA_ROOT)
 
     @property
-    def _path(self):
-        """Returns the abspath of the photo file"""
-        return os.path.join(SETTINGS.MEDIA_ROOT, self.PHOTO_DIR, self.filename)
-
-    @property
     def _thumbnail_path(self):
         """Returns the abspath to the thumbnail file, and generates it if needed"""
-        path = os.path.join(SETTINGS.MEDIA_ROOT, self.PHOTO_DIR, self.THUMBNAIL_PREFIX + self.filename)
+        filename = self.THUMBNAIL_PREFIX + os.path.basename(self.file.name)
+        path = os.path.join(os.path.dirname(self.file.path), filename)
         try:
             open(path).close()
         except IOError:
@@ -66,7 +62,7 @@ class Photo(models.Model):
     def _generate_thumbnail(self, save_to_location):
         """Generates a thumbnail and saves to to the save_to_location"""
         SIZE = (400, 300)
-        im = Image.open(self._path)
+        im = Image.open(self.file.path)
         im.thumbnail(SIZE, Image.ANTIALIAS)
         im.save(save_to_location)
 
