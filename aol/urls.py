@@ -24,6 +24,8 @@ urlpatterns = patterns('',
     # admin area
     url(r'^admin/?$', customadmin.listing, name='admin-listing'),
     url(r'^admin/edit/lake/(?P<lake_id>\d+)?$', customadmin.edit_lake, name='admin-edit-lake'),
+    url(r'^admin/edit/photo/(?P<photo_id>\d+)?$', customadmin.edit_photo, name='admin-edit-photo'),
+    url(r'^admin/add/photo/(?P<lake_id>\d+)?$', customadmin.edit_photo, name='admin-add-photo'),
     
     # Examples:
     # url(r'^$', 'aol.views.home', name='home'),

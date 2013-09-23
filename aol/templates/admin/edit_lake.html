@@ -2,10 +2,15 @@
 {% block content %}
 <aside>
     <h4>Assets</h4>
-    <ul>
-        <li><a href="">Documents</a></li>
-        <li><a href="">Photos</a></li>
-    </ul>
+    <h5>Photos</h5>
+    <a href="{% url 'admin-add-photo' lake_id=lake.pk %}">Add</a>
+    {% if photos %}
+        <ul>
+            {% for photo in photos %}
+                <li><a href="{% url 'admin-edit-photo' photo_id=photo.pk %}">{{ photo.pk }} - {{ photo.caption }}</a></li>
+            {% endfor %} 
+        </ul>
+    {% endif %}
 </aside>
 
 <form method="post">
