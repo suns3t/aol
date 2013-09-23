@@ -33,19 +33,16 @@
             </select>
         </div>
         <div class='other-information aside' id='other-information'>
-            {% with urls=lake.page_urls %}
-            {% if urls %}
-                <div class="lake-info">
-                    <h2>PDFs</h2>
-                    <ul>
-                        {% if urls.page %}<li><a href="{{ urls.page }}">1985 Atlas of Oregon Lakes Page</a></li>{% endif %}
-                        {% if urls.map %}<li><a href="{{ urls.map }}">Printable Lake Map</a></li>{% endif %}
-                        {% if urls.survey %}<li><a href="{{ urls.survey }}">2007 National Lakes Survey Summary Page</a></li>{% endif %}
-                        {% if urls.stats %}<li><a href="{{ urls.stats }}">Basin Statistics</a></li>{% endif %}
-                    </ul>
-                </div>
-            {% endif %}
-        {% endwith %}
+        {% if documents %}
+            <div class="lake-info">
+                <h2>Documents</h2>
+                <ul>
+                    {% for doc in documents %}
+                        <li><a href="{{ doc.file.url }}">{{ doc.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
 
         </div>
         <div id='photos' class="aside">

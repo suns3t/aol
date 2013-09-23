@@ -25,11 +25,13 @@ def edit_lake(request, lake_id):
         form = LakeForm(instance=lake)
 
     photos = Photo.objects.filter(lake=lake)
+    documents = Document.objects.filter(lake=lake)
 
     return render(request, "admin/edit_lake.html", {
         "lake": lake,
         "form": form,
         "photos": photos,
+        "documents": documents,
     })
 
 def edit_photo(request, lake_id=None, photo_id=None):
@@ -57,6 +59,34 @@ def edit_photo(request, lake_id=None, photo_id=None):
     return render(request, "admin/edit_photo.html", {
         "lake": lake,
         "photo": photo,
+        "form": form,
+    })
+
+def edit_document(request, lake_id=None, document_id=None):
+    """
+    The add/edit page for a document. If a document_id is passed in, we edit. If the
+    lake_id is passed in, we create
+    """
+    try:
+        document = Document.objects.get(pk=document_id)
+        lake = document.lake
+    except Document.DoesNotExist:
+        # create a new document with a foreign key to the lake
+        lake = get_object_or_404(Lake, pk=lake_id)
+        document = Document(lake=lake)
+
+    if request.POST:
+        form = DocumentForm(request.POST, request.FILES, instance=document)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Document %s" % "Edited" if document_id else "Created")
+            return HttpResponseRedirect(reverse("admin-edit-lake", args=(lake.pk,)))
+    else:
+        form = DocumentForm(instance=document)
+
+    return render(request, "admin/edit_document.html", {
+        "lake": lake,
+        "document": document,
         "form": form,
     })
 

@@ -11,6 +11,16 @@
             {% endfor %} 
         </ul>
     {% endif %}
+
+    <h5>Documents</h5>
+    <a href="{% url 'admin-add-document' lake_id=lake.pk %}">Add</a>
+    {% if documents %}
+        <ul>
+            {% for document in documents %}
+                <li><a href="{% url 'admin-edit-document' document_id=document.pk %}">{{ document.pk }} - {{ document.name }}</a></li>
+            {% endfor %} 
+        </ul>
+    {% endif %}
 </aside>
 
 <form method="post">

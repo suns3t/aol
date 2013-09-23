@@ -86,6 +86,7 @@ class Lake(models.Model):
 
     class Meta:
         db_table = 'lake'
+        ordering = ['title']
 
     @property
     def page_urls(self):

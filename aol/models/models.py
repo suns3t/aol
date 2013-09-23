@@ -9,9 +9,11 @@ class Document(models.Model):
     Stores all the documents attached to a lake like PDFs, and whatever else an
     admin wants to upload (except Photos which are handled in their own model)
     """
+    DOCUMENT_DIR = "pages/"
+
     document_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)
-    file = models.FileField(upload_to=lambda: '')
+    file = models.FileField(upload_to=lambda instance, filename: instance.DOCUMENT_DIR + filename)
     rank = models.IntegerField(help_text="The order this field is displayed on the lakes detail page")
     uploaded_on = models.DateTimeField(auto_now_add=True)
 
@@ -19,6 +21,7 @@ class Document(models.Model):
 
     class Meta:
         db_table = 'document'
+        ordering = ['rank']
 
 
 class Photo(models.Model):
