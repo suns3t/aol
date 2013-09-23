@@ -3,3 +3,4 @@ Pillow==2.1.0
 psycopg2==2.5.1
 pytz==2013d
 wsgiref==0.1.2
+https://github.com/PSU-OIT-ARC/djangocas/archive/master.zip

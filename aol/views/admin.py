@@ -2,9 +2,11 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse 
 from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from aol.models import Lake, Photo, Document, Photo
 from aol.forms.admin import DocumentForm, LakeForm, PhotoForm
 
+@login_required
 def listing(request):
     """List all the lakes that the admin can edit"""
     lakes = Lake.objects.all()
@@ -12,6 +14,7 @@ def listing(request):
         "lakes": lakes,
     })
 
+@login_required
 def edit_lake(request, lake_id):
     """The edit page for a lake"""
     lake = get_object_or_404(Lake, lake_id=lake_id)
@@ -34,6 +37,7 @@ def edit_lake(request, lake_id):
         "documents": documents,
     })
 
+@login_required
 def edit_photo(request, lake_id=None, photo_id=None):
     """
     The add/edit page for a photo. If a photo_id is passed in, we edit. If the
@@ -62,6 +66,7 @@ def edit_photo(request, lake_id=None, photo_id=None):
         "form": form,
     })
 
+@login_required
 def edit_document(request, lake_id=None, document_id=None):
     """
     The add/edit page for a document. If a document_id is passed in, we edit. If the

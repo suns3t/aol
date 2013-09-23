@@ -5,6 +5,13 @@ from fnmatch import fnmatch
 here = lambda *path: os.path.normpath(os.path.join(os.path.dirname(__file__), *path))
 ROOT = lambda *path: here("../../", *path)
 
+AUTH_USER_MODEL = 'models.User'
+
+LOGIN_URL = '/admin/login'
+LOGOUT_URL = '/admin/logout'
+LOGIN_REDIRECT_URL = '/admin'
+CAS_SERVER_URL = 'https://sso.pdx.edu/cas/login'
+
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = ['.pdx.edu']
@@ -97,6 +104,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'djangocas.middleware.CASMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
@@ -127,6 +135,11 @@ INSTALLED_APPS = (
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+)
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'djangocas.backends.CASBackend',
 )
 
 # A sample logging configuration. The only tangible logging
