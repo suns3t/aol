@@ -1,10 +1,11 @@
 from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 from django.conf import settings as SETTINGS
-from .views import home
-from .views import lakes
-from .views import maps
-from .views import admin as customadmin
+from aol.lakes import views as lakes
+from aol.home import views as home
+from aol.maps import views as maps
+from aol.users import views as customadmin
+#from .views import mussels
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -32,6 +33,9 @@ urlpatterns = patterns('',
     # login logout
     url(r'^admin/login/$', 'djangocas.views.login', name='admin-login'),
     url(r'^admin/logout/$', 'djangocas.views.logout', name='admin-logout', kwargs={"next_page": "/"}),
+
+    # mussels
+    #url(r'^mussels/?$', mussels.merge, name='mussels-merge'),
     
     # Examples:
     # url(r'^$', 'aol.views.home', name='home'),

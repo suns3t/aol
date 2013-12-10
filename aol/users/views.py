@@ -3,8 +3,8 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from aol.models import Lake, Photo, Document, Photo
-from aol.forms.admin import DocumentForm, LakeForm, PhotoForm
+from aol.lakes.models import Lake, Photo, Document, Photo
+from .forms import DocumentForm, LakeForm, PhotoForm
 
 @login_required
 def listing(request):

@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-from aol.models import Lake
+from ..models import Lake
 
 class LakesTest(TestCase):
     fixtures = ['lakes.json']

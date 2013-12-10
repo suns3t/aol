@@ -5,7 +5,7 @@ from fnmatch import fnmatch
 here = lambda *path: os.path.normpath(os.path.join(os.path.dirname(__file__), *path))
 ROOT = lambda *path: here("../../", *path)
 
-AUTH_USER_MODEL = 'models.User'
+AUTH_USER_MODEL = 'users.User'
 
 LOGIN_URL = '/admin/login'
 LOGOUT_URL = '/admin/logout'
@@ -19,7 +19,7 @@ ALLOWED_HOSTS = ['.pdx.edu']
 POSTGIS_TEMPLATE = 'postgis_template'
 
 # with a trailing slash
-TILE_URL = "http://pan.rc.pdx.edu/arcgis/rest/services/aol/nlcd/MapServer/"
+TILE_URL = "http://gis.rc.pdx.edu/arcgis/rest/services/aol/nlcd/MapServer/"
 
 # allow the use of wildcards in the INTERAL_IPS setting
 class IPList(list):
@@ -128,9 +128,11 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'aol.models',
-    'aol.views',
-    'aol.forms',
+    #'aol.models',
+    #'aol.views',
+    #'aol.forms',
+    'aol.users',
+    'aol.lakes',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:

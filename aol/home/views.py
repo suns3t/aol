@@ -1,6 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from aol.models import Lake
+from aol.lakes.models import Lake
 
 def home(request):
     """The homepage of the site"""

@@ -1,6 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-from aol.models import Lake
+from aol.lakes.models import Lake
 
 def home(request):
     """Displays the interactive map"""
@@ -18,5 +18,3 @@ def lakes(request):
     return render(request, "maps/lakes.kml", {
         "lakes": lakes,
     })
-
-

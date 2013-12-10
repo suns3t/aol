@@ -1,5 +1,5 @@
 from django import forms
-from aol.models import Document, Lake, LakeCounty, Photo
+from aol.lakes.models import Document, Lake, LakeCounty, Photo
 
 class LakeForm(forms.ModelForm):
     def save(self, *args, **kwargs):

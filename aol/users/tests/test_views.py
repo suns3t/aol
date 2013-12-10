@@ -1,11 +1,16 @@
 import os
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-from aol.models import Lake, Photo, Document
+from aol.lakes.models import Lake, Photo, Document
 from django.conf import settings as SETTINGS
 
 class AdminTest(TestCase):
     fixtures = ['lakes.json']
+    def setUp(self):
+        u = User(username="mdj2", email="mdj2@pdx.edu", first_name="M", last_name="J", is_staff=True)
+        u.set_password("password")
+        u.save()
+        self.client.login(u.username, "password")
 
     # just make sure the views return a 200
     def test_listing(self):

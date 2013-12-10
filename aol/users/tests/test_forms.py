@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-from aol.models import Lake, Photo
-from ..admin import LakeForm, PhotoForm
+from aol.lakes.models import Lake, Photo
+from ..forms import LakeForm, PhotoForm
 
 class LakeFormTest(TestCase):
     fixtures = ['lakes.json']

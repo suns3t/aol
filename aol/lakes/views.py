@@ -1,12 +1,13 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse 
 from django.shortcuts import render, get_object_or_404
-from aol.models import Lake, Photo, Document
+from django.core.paginator import Paginator
+from .models import Lake, Photo, Document
 
 def listing(request):
     """Display a list of all the lakes in the Atlas, with pagination"""
-    lakes = Lake.objects.all()
-    lakes = lakes.order_by('title')
+    lakes = Lake.objects.all().order_by("title")
+
     return render(request, "lakes/listing.html", {
         "lakes": lakes,
     })
@@ -37,4 +38,3 @@ def search(request):
         'lakes': qs, 
         'query':q,
         })
-

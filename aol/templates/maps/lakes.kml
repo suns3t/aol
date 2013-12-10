@@ -18,7 +18,7 @@
                 <Placemark>
                     <id></id>
                     <name>{{ lake.title }}</name>
-                    <description><![CDATA[ <strong>Foo</strong> <em>bar</em> ]]></description>
+                    <description><![CDATA[ {% if lake.page_number %}<a href="{% url 'lakes-detail' reachcode=lake.reachcode %}">Page</a>{% endif %} ]]></description>
                     <styleUrl>#lake</styleUrl>
                     {{ lake.kml|safe }}
                 </Placemark>
