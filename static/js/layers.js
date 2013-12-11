@@ -2,7 +2,7 @@ var layers = (function(){
     // at the end of this closure we return an object containing all the layers
 
     // base layer for the map
-    var base_layer = new OpenLayers.Layer.XYZ("Naturalistic", "http://pan.rc.pdx.edu/arcgis/rest/services/aol/nlcd/MapServer/tile/${z}/${y}/${x}", {
+    var base_layer = new OpenLayers.Layer.XYZ("Naturalistic", "http://gis.rc.pdx.edu/arcgis/rest/services/aol/nlcd/MapServer/tile/${z}/${y}/${x}", {
         sphericalMercator: false,
         transitionEffect: 'resize',
         tileOrigin: new OpenLayers.LonLat(-300000, 2763954),
