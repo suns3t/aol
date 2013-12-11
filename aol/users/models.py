@@ -1,7 +1,7 @@
 from django.contrib.gis.db import models
-from django.contrib.auth.models import AbstractBaseUser, UserManager, PermissionsMixin
+from django.contrib.auth.models import AbstractBaseUser, UserManager 
 
-class User(AbstractBaseUser, PermissionsMixin):
+class User(AbstractBaseUser):
     """A custom user model. Not really necessary yet"""
     id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=100, unique=True, db_index=True)
@@ -17,8 +17,15 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     class Meta:
-        db_table = "auth_user"
+        db_table = "user"
 
-    def get_short_name(self):
-        return self.email
+    #
+    # These methods are required to work with Django's admin
+    #
+    def get_full_name(self): return self.first_name + " " + self.last_name
+    def get_short_name(self): return self.first_name[0] + " " + self.last_name
 
+    # we don't need granular permissions; all staff will have access to
+    # everything
+    def has_perm(self, perm, obj=None): return True
+    def has_module_perms(self, app_label): return True
