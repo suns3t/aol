@@ -4,3 +4,4 @@
 aol/settings/local.py
 .env
 media/*
+*.sql
