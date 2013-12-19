@@ -72,3 +72,15 @@ class PhotoForm(DeletableModelForm):
             'taken_on',
         )
 
+class PlantForm(forms.Form):
+    user_input = forms.CharField(widget=forms.Textarea)
+
+    def show(self):
+        # for line in self.cleaned_data['user_input'].split('\n'):
+        #     attributes = line.split('\t')
+        #     for attribute in attributes:
+        #         print attribute
+        #         print "tab"
+        #     print "new line"
+        print self.cleaned_data
+

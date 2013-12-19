@@ -83,6 +83,9 @@ class Lake(models.Model):
     gnis_name = models.CharField(max_length=255)
     reachcode = models.CharField(max_length=255, unique=True)
 
+    # Plant in the lake
+    plants = models.ManyToManyField('Plant')
+
     # the page number of this lake in the original AOL book
     page_number = models.IntegerField(db_column="aol_page")
 
@@ -312,3 +315,17 @@ class County(models.Model):
 
     def __unicode__(self):
         return self.full_name
+
+class Plant(models.Model):
+    plant_id = models.AutoField(primary_key=True) # Primary key for a plant row
+    name = models.CharField(max_length=255) # Scientific name of a plant
+    common_name = models.CharField(max_length=255) # Common name of the plant
+    former_name = models.CharField(max_length=255) # Former name of the plant
+    reachcode = models.CharField(max_length=255, unique=True) # This is reachcode of the lake that the plant lives in
+    plant_family = models.CharField(max_length=255) # The family name that the plant belongs to
+
+    class Meta:
+        db_table = "plant"
+    
+    def __unicode__(self):
+        return self.name

@@ -3,8 +3,8 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from aol.lakes.models import Lake, Photo, Document, Photo
-from .forms import DocumentForm, LakeForm, PhotoForm
+from aol.lakes.models import Lake, Photo, Document, Photo, Plant 
+from .forms import DocumentForm, LakeForm, PhotoForm, PlantForm
 
 @login_required
 def listing(request):
@@ -95,3 +95,23 @@ def edit_document(request, lake_id=None, document_id=None):
         "form": form,
     })
 
+@login_required
+def  add_plant(request):
+    """ 
+    This page will have a textbox for user to input plant info,
+    which will be delimited by Tab character.
+    """
+    if request.POST:
+        form = PlantForm(request.POST)
+        if form.is_valid():
+            form.show()
+            messages.success(request, " Plants information is saved ")
+            return HttpResponseRedirect(reverse("admin-add-plant"))
+    else:
+        form = PlantForm()
+
+    return render(request, "admin/add_plant.html", {
+        "form": form,
+    })
+
+    

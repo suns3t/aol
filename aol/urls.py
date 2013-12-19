@@ -29,7 +29,8 @@ urlpatterns = patterns('',
     url(r'^admin/add/photo/(?P<lake_id>\d+)?$', customadmin.edit_photo, name='admin-add-photo'),
     url(r'^admin/edit/document/(?P<document_id>\d+)?$', customadmin.edit_document, name='admin-edit-document'),
     url(r'^admin/add/document/(?P<lake_id>\d+)?$', customadmin.edit_document, name='admin-add-document'),
-
+    url(r'^admin/add/plants?$', customadmin.add_plant, name='admin-add-plant'),
+    
     # login logout
     url(r'^admin/login/$', 'djangocas.views.login', name='admin-login'),
     url(r'^admin/logout/$', 'djangocas.views.logout', name='admin-logout', kwargs={"next_page": "/"}),
